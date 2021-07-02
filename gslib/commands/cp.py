@@ -87,7 +87,8 @@ _DESCRIPTION_TEXT = """
 
     gsutil cp *.txt gs://my-bucket
 
-  You can also download text files from a bucket:
+  You can also download data from a bucket. The following command downloads
+  all text files from a bucket to your current directory:
 
     gsutil cp gs://my-bucket/*.txt .
 
@@ -359,8 +360,9 @@ _STREAMING_TRANSFERS_TEXT = """
 
     long_running_computation | gsutil cp - gs://my-bucket/obj
 
-  Streaming uploads using the JSON API (see "gsutil help apis") are buffered in
-  memory part-way back into the file and can thus retry in the event of network
+  Streaming uploads using the `JSON API
+  <https://cloud.google.com/storage/docs/request-endpoints#gsutil>`_ are buffered
+  in memory part-way back into the file and can thus retry in the event of network
   or service problems.
 
   Streaming transfers using the XML API do not support resumable
@@ -487,8 +489,8 @@ _OPTIONS_TEXT = """
                  at its destination. However, you can use "daisy chain" mode to change a
                  composite object into a non-composite object. For example:
 
-                     gsutil cp -D -p gs://bucket/obj gs://bucket/obj_tmp
-                     gsutil mv -p gs://bucket/obj_tmp gs://bucket/obj
+                     gsutil cp -D gs://bucket/obj gs://bucket/obj_tmp
+                     gsutil mv gs://bucket/obj_tmp gs://bucket/obj
 
                  NOTE: "Daisy chain" mode is automatically used when copying
                  between providers: for example, when copying data from Cloud Storage

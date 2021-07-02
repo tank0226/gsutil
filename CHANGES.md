@@ -1,3 +1,87 @@
+Release 4.65 (release date: 2021-07-02)
+=======================================
+New Features
+------------------
+ - Add gsutil support for Public Access Prevention (#1255)
+
+Bug Fixes
+------------------
+ - Fix raising-bad-type yapf errors. (#1303)
+
+Other Changes
+------------------
+ - Link fix pointing to CGC docs again (#1291).
+ - Backfill some small doc changes (#1294)
+ - Small text tweak (#1293)
+ - Update CHECKSUM and VERSION for 4.64 release.
+ - Update CHANGES.md for 4.64 release.
+ - Delete encryption addhelp page (#1297)
+ - Putting cl/381035251 into github (#1296)
+ - Backfill cl/381932961 (#1298)
+
+Release 4.64 (release date: 2021-06-18)
+=======================================
+Bug Fixes
+------------------
+ - None
+
+Other Changes
+------------------
+ - Link fix pointing to CGC docs.
+
+Release 4.63 (release date: 2021-06-09)
+=======================================
+Bug Fixes
+------------------
+ - Update warning text on KMS access denied (#1278)
+ - Make ** to represent zero or more folders for cloud urls (#1277)
+ - Raise error if final destination path ends with a delimiter. (#1273)
+
+Other Changes
+------------------
+ - Fix flaky test for rm using preconditions (#1288)
+ - Fix pyenv issue for macOS (#1280)
+ - Fix rewrite tests (#1279)
+ - Remove unused progress callback. (#1274)
+ - Several documentation updates and clarifications.
+
+Release 4.62 (release date: 2021-05-13)
+=======================================
+New Features
+------------------
+ - Add ignore-existing option for rsync (#1183).
+ - Show satisifiesPZS info in bucket info listing (ls -Lb). (#1191)
+ - Support composite uploads with KMS. (#1214)
+ - Enforce custom endpoints through multipart copies and complex downloads. (#1247, #1250)
+
+Bug Fixes
+------------------
+ - rm will continue on object 404s. (#1033)
+ - Update boto submodule to include a fix for integrity checks with KMS. (#1258)
+ - iam ch is now case-insensitive for public members and member types. (#1241)
+ - Support skipping integrity checks in daisy chain transfers. (#1257)
+ - Ensure the correct content-length is provided for incomplete downloads. (#1231)
+ - Fix daisy chain for windows. (#1251)
+ - Fix stats crashing because of nanosecs in custom-time. (#1246)
+ - Delete connections after fork. (#1238)
+ - Patch md5 import for compliance on Red Hat FIPS mode distributions. (#1224)
+ - Handle case where there are too many slashes after CloudUrl scheme. (#1237)
+ - Allow specifying object generations in compose. (#1229)
+ - Raise error in setmeta if no headers are provided. (#1227)
+ - Fix encoding issue for rfc822 messages. (#1234)
+ - Fix StreamExhausted Error handling for Resumable uploads. (#1232)
+ - Fix wildcard ** bug. (#1235)
+ - Fix alignment of ls -l output. (#1219)
+ - Fix newlines around lists. (#1220)
+
+Other Changes
+------------------
+ - Fix sonatype errors. (#1266)
+ - gslib: boto\_util: implement a HasUserSpecifiedGsHost() helper. (#1265)
+ - Adding warning to rsync if streams or named paths are included in a folder. (#1031)
+ - Improve parallelism warnings. (#1226)
+ - Several documentation updates and clarifications.
+
 Release 4.61 (release date: 2021-04-06)
 =======================================
 Bug Fixes

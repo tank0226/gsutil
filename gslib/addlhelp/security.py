@@ -36,9 +36,10 @@ _DETAILED_HELP_TEXT = ("""
   eavesdropped and reused.
 
   gsutil also supports the older HMAC style of authentication via the XML API
-  (see "gsutil help apis").  While HMAC authentication does not use bearer
-  tokens (and thus is not subject to eavesdropping/replay attacks), it's still
-  important to encrypt data traffic.
+  (see `gsutil endpoints
+  <https://cloud.google.com/storage/docs/request-endpoints#gsutil>`_).  While
+  HMAC authentication does not use bearer tokens (and thus is not subject to
+  eavesdropping/replay attacks), it's still important to encrypt data traffic.
 
   Prior to gsutil release 4.0 it was possible to use HTTP instead of HTTPS by
   setting the "is_secure" configuration parameter in the [Boto] section of the
@@ -166,13 +167,10 @@ _DETAILED_HELP_TEXT = ("""
 
 
 <B>ENCRYPTION AT REST</B>
-  All Google Cloud Storage data are stored encrypted. For more information see
-  `Server-Side Encryption
-  <https://cloud.google.com/storage/docs/encryption#server-side>`_.
-
-  You can also provide your own encryption keys. For more information, see
-  "gsutil help encryption".
-
+  All Google Cloud Storage data are automatically stored in an encrypted state,
+  but you can also provide your own encryption keys. For more information, see
+  `Cloud Storage Encryption
+  <https://cloud.google.com/storage/docs/encryption>`_.
 
 <B>DATA PRIVACY</B>
   Google will never ask you to share your credentials, password, or other

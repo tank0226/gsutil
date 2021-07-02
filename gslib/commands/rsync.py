@@ -150,6 +150,9 @@ _DETAILED_HELP_TEXT = ("""
   flow through the machine where gsutil is running, doing this can make your
   transfer run significantly faster than running gsutil on your local
   workstation.
+  
+  Note 3: rsync does not copy empty directory trees, since Cloud Storage uses a
+  `flat namespace <https://cloud.google.com/storage/docs/folders>`_.
 
 
 <B>Using -d Option (with caution!) to mirror source and destination.</B>
@@ -1430,6 +1433,12 @@ def _RsyncFunc(cls, diff_to_apply, thread_state=None):
           # getmtime can return a float, so it needs to be converted to long.
           if posix_attrs.mtime > long(time.time()) + SECONDS_PER_DAY:
             WarnFutureTimestamp('mtime', src_url.url_string)
+          if src_url.IsFifo() or src_url.IsStream():
+            type_text = 'Streams' if src_url.IsStream() else 'Named pipes'
+            cls.logger.warn(
+                'WARNING: %s are not supported by gsutil rsync and '
+                'will likely fail. Use the -x option to exclude %s by name.',
+                type_text, src_url.url_string)
         if src_obj_metadata.metadata:
           custom_metadata = src_obj_metadata.metadata
         else:

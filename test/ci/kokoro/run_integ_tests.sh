@@ -54,15 +54,16 @@ function latest_python_release {
 function install_pyenv {
   # Install pyenv if missing.
   if ! [ "$(pyenv --version)" ]; then
-    # For now, only doing this on mac,
-    # beacuse that was the only place where it appeared to be missing.
-    if [[ $KOKORO_JOB_NAME =~ "macos" ]]; then
-      brew update
-      brew install pyenv
-      eval "$(pyenv init -)"
-    fi
+    # MacOS VM does not have pyenv installed by default.
+    git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init --path)"
   fi
   pyenv update
+  # To address pyenv issue: See b/187701234#comment12.
+  cd ~/.pyenv/plugins/python-build/../.. && git pull && \
+     git checkout 783870759566a77d09b426e0305bc0993a522765 && cd -
 }
 
 function install_python {
@@ -106,10 +107,18 @@ update_submodules
 
 set -e
 
-# Check that we're using the correct config
+# Check that we're using the correct config.
 python "$GSUTIL_ENTRYPOINT" version -l
-# Run integration tests
+# Run integration tests.
 python "$GSUTIL_ENTRYPOINT" test -p "$PROCS"
+# Run custom endpoint tests.
+# We don't generate a .boto for these tests since there are only a few settings.
+python "$GSUTIL_ENTRYPOINT" \
+  -o "Credentials:gs_host=storage-psc.p.googleapis.com" \
+  -o "Credentials:gs_host_header=storage.googleapis.com" \
+  -o "Credentials:gs_json_host=storage-psc.p.googleapis.com" \
+  -o "Credentials:gs_json_host_header=www.googleapis.com" \
+  test gslib.tests.test_psc
 
 # Run mTLS authentication test.
 if [[ $API == "json" ]]; then
